@@ -18,7 +18,6 @@ class CommandLineInterface
             puts "Welcome #{teacher_user.titleize}!"
         elsif 
             puts "Invalid input, please try again" 
-            self.run
         elsif type_of_user == "exit"
             puts "Have a great day!"
         end
