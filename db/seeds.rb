@@ -3,17 +3,17 @@ Teacher.delete_all
 Assignment.delete_all
 
 
-s1 = Student.create(name: Faker::Name.name)
-s2 = Student.create(name: Faker::Name.name)
-s3 = Student.create(name: Faker::Name.name)
-s4 = Student.create(name: Faker::Name.name)
-s5 = Student.create(name: Faker::Name.name)
+s1 = Student.create(name: "Harry Potter")
+s2 = Student.create(name: "Hermione Granger")
+s3 = Student.create(name: "Ron Weasley")
+s4 = Student.create(name: "Ginny Weasley")
+s5 = Student.create(name: "Draco Malfoy")
 
-t1 = Teacher.create(name: Faker::Name.name, subject: "Math")
-t2 = Teacher.create(name: Faker::Name.name, subject: "Science")
-t3 = Teacher.create(name: Faker::Name.name, subject: "History")
-t4 = Teacher.create(name: Faker::Name.name, subject: "English")
-t5 = Teacher.create(name: Faker::Name.name, subject: "Latin")
+t1 = Teacher.create(name: "Albus Dumbledore", subject: "Math")
+t2 = Teacher.create(name: "Severus Snape", subject: "Science")
+t3 = Teacher.create(name: "Minerva McGonagall", subject: "History")
+t4 = Teacher.create(name: "Remus Lupin", subject: "English")
+t5 = Teacher.create(name: "Horace Slughorn", subject: "Latin")
 
 Assignment.create(task: "Create and solve 3 word problems using the quadratic formula", student_id: s1.id, teacher_id: t1.id)
 Assignment.create(task: "Summarize the process of protein synthesis including transcription and translation", student_id: s1.id, teacher_id: t2.id)
