@@ -93,8 +93,11 @@ class CommandLineInterface
         if student_input == "1"
             teacher = "Albus Dumbledore"
             t = Teacher.find_by(name: teacher)
-            list = s.assignments.each do |assignment|
-                puts assignment.teacher_id == t.id
+            list = s.assignments.select do |assignment|
+                assignment.teacher_id == t.id
+            end
+            list.each do |assignment|
+                puts assignment.task
             end
         elsif student_input == "2"
             teacher == "Severus Snape"
