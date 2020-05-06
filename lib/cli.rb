@@ -3,21 +3,23 @@ class CommandLineInterface
         puts "Welcome to the Assignment Portal!"
     end
 
-    def student_user
+    def student_user #student user welcome message
         puts "Type in your full name to begin:"
         student_user = gets.chomp.titleize
         if Student.find_by(name: student_user)
             puts "Welcome #{student_user.titleize}!"
+            self.student(student_user)
         else 
             puts "You are not authorized to access the portal. Please contact student services for additional support"
         end
     end
 
-    def teacher_user
+    def teacher_user #teacher user welcome message
         puts "Type in your full name to begin:"
         teacher_user = gets.chomp.titleize
         if Teacher.find_by(name: teacher_user)
             puts "Welcome #{teacher_user.titleize}!"
+            self.teacher(teacher_user)
         else 
             puts "You are not authorized to access the portal. Please contact your administrator for additional support"
         end
