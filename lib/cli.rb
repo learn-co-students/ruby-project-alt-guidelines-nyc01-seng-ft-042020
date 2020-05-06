@@ -41,10 +41,10 @@ class CommandLineInterface
         end
         if student_task == "1"
             self.student_all_assignment(student_user)
-        # elsif student_task == "2"
-        #     self.student_assignment_by_teacher
-        # elsif student_task == "3"
-        #  puts "Have a great day!"
+        elsif student_task == "2"
+            self.student_assignment_by_teacher
+        elsif student_task == "3"
+            puts "Have a great day!"
         end
     end
 
@@ -53,6 +53,21 @@ class CommandLineInterface
         s.assignments.each do |assignment|
             puts assignment.task 
         end
+        puts "To return to the main menu, type in 1. To exit, type in 2."
+        input = gets.chomp
+        until input == "1" || input == "2"
+            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
+            input = gets.chomp
+        end
+        if input == "1"
+            self.student_tasks(student_user)
+        elsif input == "2"
+            puts "Have a great day!"
+        end
+    end
+
+    def student_assignment_by_teacher(student_user)
+        
         puts "To return to the main menu, type in 1. To exit, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
