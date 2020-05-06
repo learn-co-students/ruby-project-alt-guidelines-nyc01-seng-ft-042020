@@ -17,7 +17,6 @@ class CommandLineInterface
             student_user = gets.chomp.titleize
             if Student.find_by(name: student_user)
                 puts "Welcome #{student_user.titleize}!"
-                self.student_options
             else 
                 puts "You are not authorized to access the portal. Please contact student services for additional support"
             end
