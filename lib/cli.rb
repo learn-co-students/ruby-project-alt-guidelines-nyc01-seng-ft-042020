@@ -15,21 +15,20 @@ class CommandLineInterface
         if type_of_user == "student"
             puts "Type in your full name to begin:"
             student_user = gets.chomp.titleize
-            
-            # if 
+            if Student.find_by(name: student_user)
                 puts "Welcome #{student_user.titleize}!"
-            # else 
-            #     puts "Unauthorized user"
-            # end
+            else 
+                puts "You are not authorized to access the portal. Please contact student services for additional support"
+            end
         elsif type_of_user == "teacher"
             puts "Type in your full name to begin:"
             teacher_user = gets.chomp.titleize
-
-            # if 
+            if Teacher.find_by(name: teacher_user)
                 puts "Welcome #{teacher_user.titleize}!"
-            # else
-            #     puts "Unauthorized user"
-            # end
+                binding.pry
+            else 
+                puts "You are not authorized to access the portal. Please contact your administrator for additional support"
+            end
         elsif type_of_user == "exit"
             puts "Have a great day!"
         end
