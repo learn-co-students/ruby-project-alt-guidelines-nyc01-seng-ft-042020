@@ -11,7 +11,7 @@ s5 = Student.create(name: "Draco Malfoy")
 
 t1 = Teacher.create(name: "Albus Dumbledore", subject: "Math")
 t2 = Teacher.create(name: "Severus Snape", subject: "Science")
-t3 = Teacher.create(name: "Minerva McGonagall", subject: "History")
+t3 = Teacher.create(name: "Filius Flitwick", subject: "History")
 t4 = Teacher.create(name: "Remus Lupin", subject: "English")
 t5 = Teacher.create(name: "Horace Slughorn", subject: "Latin")
 

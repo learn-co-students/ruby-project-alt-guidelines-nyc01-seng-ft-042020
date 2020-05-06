@@ -53,10 +53,10 @@ class CommandLineInterface
         s.assignments.each do |assignment|
             puts assignment.task 
         end
-        puts "Please type in 1 to return to main menu or 2 to exit"
+        puts "To return to the main menu, type in 1. To exit, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
@@ -89,7 +89,7 @@ class CommandLineInterface
         elsif teacher_task == "2"
             self.teacher_create_assignment(teacher_user)
         elsif teacher_task == "3"
-            self.teacher_update_assignment
+            self.teacher_update_assignment(teacher_user)
         elsif teacher_task == "4"
             self.teacher_delete_assignment(teacher_user)
         elsif teacher_task == "5"
@@ -102,10 +102,10 @@ class CommandLineInterface
         t.assignments.select do |assignment|
             puts assignment.task
         end
-        puts "Please type in 1 to return to main menu or 2 to exit"
+        puts "To return to the main menu, type in 1. To exit, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
@@ -116,10 +116,10 @@ class CommandLineInterface
     end
 
     def teacher_create_assignment(teacher_user) #transition method to creating assignments
-        puts "Please type in 1 to create an assignment or 2 to return to main menu"
+        puts "To create an assignment, type in 1. To return to the main menu, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
@@ -130,17 +130,17 @@ class CommandLineInterface
     end
 
     def create_assignment(teacher_user) #creates assignment for one student ###need to create assignment for many students
-        puts "To begin, type in the task below"
+        puts "To begin, type in your new assignment task below"
         task_input = gets.chomp
         puts "Type in the corresponding number to assign the task to a student:", "1: Harry Potter", "2: Hermione Granger", "3: Ron Weasley", "4: Ginny Weasley", "5: Draco Malfoy"
         task_student = gets.chomp.titleize
         s = Student.find_by(task_student)
         t = Teacher.find_by(name: teacher_user)
         Assignment.create(task: task_input, student_id: s.id, teacher_id: t.id)
-        puts "Assignment Created! To return to main menu, type in 1. To exit, type in 2"
+        puts "Assignment Created! To return to main menu, type in 1. To exit, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            puts "Invalid response. To return to main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
@@ -150,29 +150,35 @@ class CommandLineInterface
         end
     end
 
-    def teacher_delete_assignment(teacher_user) #transition method to deleting assignments
-        puts "Please type in 1 to delete an assignment or 2 to return to main menu"
+    def teacher_update_assignment(teacher_user) #updates a single assignment
+        puts "To begin, type in the task you would like to update exactly as it was written when assigned"
+        task_input = gets.chomp
+        puts "Type in below what you would like to update the task to say:"
+        new_task_input = gets.chomp
+        assignment = Assignment.find_by(task: task_input)
+        assignment.update(task: new_task_input)
+        puts "Assignment Updated! To return to main menu, type in 1. To exit, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            puts "Invalid response. To return to main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
-            self.delete_assignment(teacher_user)
-        elsif input == "2"
             self.teacher_tasks(teacher_user)
+        elsif input == "2"
+            puts "Have a great day!"
         end
     end
 
-    def delete_assignment(teacher_user) #deletes assignments
-        puts "To begin, type in the task below exactly as assigned"
+    def delete_assignment(teacher_user) #deletes a single assignment
+        puts "To begin, type in the task you would like to delete exactly as it was written when assigned"
         task_input = gets.chomp
         assignment = Assignment.find_by(task: task_input)
         assignment.delete
-        puts "Assignment Deleted! To return to main menu, type in 1. To exit, type in 2"
+        puts "Assignment Deleted! To return to main menu, type in 1. To exit, type in 2."
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            puts "Invalid response. To return to main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
