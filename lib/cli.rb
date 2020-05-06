@@ -32,8 +32,32 @@ class CommandLineInterface
         end
     end
 
-    # def student_tasks(student_user)
-    # end
+    def student_tasks(student_user) #student user viewing assignments
+        puts "What would you like to do today? Please type in the corresponding letter", "1: View All Assignments", "2: View Assignments by Teacher", "3: View Grades for All Assignments", "4: View Grades by Teacher", "5: exit"
+        student_task = gets.chomp
+        until student_task == "1" || student_task == "2" || student_task == "3" || student_task == "4" || student_task == "5"
+            puts "Invalid response. Please type in the corresponding letter", "1: View All Assignments", "2: View Assignments by Teacher", "3: View Grades for All Assignments", "4: View Grades by Teacher", "5: exit"
+            student_task = gets.chomp
+        end
+        if student_task == "1"
+            self.student_all_assignment(student_user)
+        elsif student_task == "2"
+            self.student_assignment_by_teacher
+        elsif student_task == "3"
+            self.student_grades_all_assignment
+        elsif student_task == "4"
+            self.student_grade_by_teacher
+        elsif student_task == "5"
+            puts "Have a great day!"
+        end
+    end
+
+    def student_all_assignment(student_user) # lists all assignments
+        s = Student.find_by(name: student_user)
+        s.assignments.each do |assign|
+            puts assign.task 
+        end
+    end
 
     def teacher_user #teacher user welcome message
         puts "Type in your full name to begin:"
@@ -46,8 +70,8 @@ class CommandLineInterface
         end
     end
 
-    # def teacher_assignments(teacher_user) #teacher user viewing assignments
-    # end
+    def teacher_assignments(teacher_user) #teacher user viewing assignments
+    end
     
 end
 
