@@ -129,10 +129,10 @@ class CommandLineInterface
         end
     end
 
-    def create_assignment(teacher_user)
+    def create_assignment(teacher_user) #creates assignment for one student ###need to create assignment for many students
         puts "To begin, type in the task below"
         task_input = gets.chomp
-        puts "Type in the corresponding number to assign the tasks to students:", "1: Harry Potter", "2: Hermione Granger", "3: Ron Weasley", "4: Ginny Weasley", "5: Draco Malfoy"
+        puts "Type in the corresponding number to assign the task to a student:", "1: Harry Potter", "2: Hermione Granger", "3: Ron Weasley", "4: Ginny Weasley", "5: Draco Malfoy"
         task_student = gets.chomp.titleize
         s = Student.find_by(task_student)
         t = Teacher.find_by(name: teacher_user)
