@@ -42,7 +42,7 @@ class CommandLineInterface
         if student_task == "1"
             self.student_all_assignment(student_user)
         elsif student_task == "2"
-            self.student_assignment_by_teacher
+            self.student_assignment_by_teacher(student_user)
         elsif student_task == "3"
             puts "Have a great day!"
         end
@@ -66,20 +66,72 @@ class CommandLineInterface
         end
     end
 
-    def student_assignment_by_teacher(student_user)
-        
-        puts "To return to the main menu, type in 1. To exit, type in 2."
+    def student_assignment_by_teacher(student_user) #transition method to see assignments by teacher
+        puts "To select a teacher to view assignments for type in 1. To return to the main menu, type in 2. To exit, type in 3."
         input = gets.chomp
-        until input == "1" || input == "2"
+        until input == "1" || input == "2" || input == "3"
             puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
             input = gets.chomp
         end
         if input == "1"
-            self.student_tasks(student_user)
+            self.assignment_by_teacher(student_user)
         elsif input == "2"
+            self.student_tasks(student_user)
+        elsif input == "3"
             puts "Have a great day!"
         end
     end
+
+    def assignment_by_teacher(student_user) #list assignments by teacher
+        puts "To select a teacher, type in the corresponding number below:", "1: Professor Dumbledore", "2: Professor Snape", "3: Professor Flitwick", "4: Professor Lupin", "5: Professor Slughorn"
+        student_input = gets.chomp
+        until student_input == "1" || student_input == "2" || student_input == "3" || student_input == "4" || student_input == "5"
+            puts "Invalid response. Type in the number corresponding to the teacher below:", "1: Professor Dumbledore", "2: Professor Snape", "3: Professor Flitwick", "4: Professor Lupin", "5: Professor Slughorn"
+            student_input = gets.chomp
+        end
+        s = Student.find_by(name: student_user)
+        if student_input == "1"
+            teacher = "Albus Dumbledore"
+            t = Teacher.find_by(name: teacher)
+            list = s.assignments.each do |assignment|
+                puts assignment.teacher_id == t.id
+            end
+        elsif student_input == "2"
+            teacher == "Severus Snape"
+            self.list_by_teacher(student_user, teacher)
+        elsif student_input == "3"
+            teacher = "Filius Flitwick"
+            self.list_by_teacher(student_user, teacher)
+        elsif student_input == "4"
+            teacher = "Remus Lupin"
+            self.list_by_teacher(student_user, teacher)
+        elsif student_input == "5"
+            teacher = "Horace Slughorn"
+            self.list_by_teacher(student_user, teacher)
+        end
+    end
+
+    # def list_by_teacher(student_user, teacher)
+    #     s = Student.find_by(name: student_user)
+    #     t = Teacher.find_by(teacher)
+    #     list = s.assignments.select do |assignment|
+    #         assignment.teacher_id == t.id
+    #     end
+    #     list.each do |assignment|
+    #         puts assignment.task
+    #     end
+    #     puts "To return to the main menu, type in 1. To exit, type in 2."
+    #     input = gets.chomp
+    #     until input == "1" || input == "2"
+    #         puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
+    #         input = gets.chomp
+    #     end
+    #     if input == "1"
+    #         self.student_tasks(student_user)
+    #     elsif input == "2"
+    #         puts "Have a great day!"
+    #     end
+    # end
 
     def teacher_user #teacher user welcome message
         puts "Type in your full name to begin:"
@@ -185,7 +237,7 @@ class CommandLineInterface
         end
     end
 
-    def delete_assignment(teacher_user) #deletes a single assignment
+    def teacher_delete_assignment(teacher_user) #deletes a single assignment
         puts "To begin, type in the task you would like to delete exactly as it was written when assigned"
         task_input = gets.chomp
         assignment = Assignment.find_by(task: task_input)
