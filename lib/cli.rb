@@ -88,12 +88,12 @@ class CommandLineInterface
             self.teacher_all_assignment_tasks(teacher_user)
         elsif teacher_task == "2"
             self.teacher_create_assignment(teacher_user)
-        # elsif teacher_task == "3"
-        #     self.teacher_update_assignment
-        # elsif teacher_task == "4"
-        #     self.teacher_delete_assignment
-        # elsif teacher_task == "5"
-        #    puts "Have a great day!"
+        elsif teacher_task == "3"
+            self.teacher_update_assignment
+        elsif teacher_task == "4"
+            self.teacher_delete_assignment(teacher_user)
+        elsif teacher_task == "5"
+           puts "Have a great day!"
         end
     end
 
@@ -115,8 +115,8 @@ class CommandLineInterface
         end
     end
 
-    def teacher_create_assignment(teacher_user)
-        puts "Please type in 1 to create assignment or 2 to return to main menu"
+    def teacher_create_assignment(teacher_user) #transition method to creating assignments
+        puts "Please type in 1 to create an assignment or 2 to return to main menu"
         input = gets.chomp
         until input == "1" || input == "2"
             puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
@@ -138,6 +138,38 @@ class CommandLineInterface
         t = Teacher.find_by(name: teacher_user)
         Assignment.create(task: task_input, student_id: s.id, teacher_id: t.id)
         puts "Assignment Created! To return to main menu, type in 1. To exit, type in 2"
+        input = gets.chomp
+        until input == "1" || input == "2"
+            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            input = gets.chomp
+        end
+        if input == "1"
+            self.teacher_tasks(teacher_user)
+        elsif input == "2"
+            puts "Have a great day!"
+        end
+    end
+
+    def teacher_delete_assignment(teacher_user) #transition method to deleting assignments
+        puts "Please type in 1 to delete an assignment or 2 to return to main menu"
+        input = gets.chomp
+        until input == "1" || input == "2"
+            puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
+            input = gets.chomp
+        end
+        if input == "1"
+            self.delete_assignment(teacher_user)
+        elsif input == "2"
+            self.teacher_tasks(teacher_user)
+        end
+    end
+
+    def delete_assignment(teacher_user) #deletes assignments
+        puts "To begin, type in the task below exactly as assigned"
+        task_input = gets.chomp
+        assignment = Assignment.find_by(task: task_input)
+        assignment.delete
+        puts "Assignment Deleted! To return to main menu, type in 1. To exit, type in 2"
         input = gets.chomp
         until input == "1" || input == "2"
             puts "Invalid response. Please type in 1 to return to main menu or 2 to exit"
