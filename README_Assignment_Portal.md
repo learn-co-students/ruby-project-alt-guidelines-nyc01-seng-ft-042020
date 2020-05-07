@@ -17,7 +17,7 @@ Through this platform you can accomplish the following tasks:
 4) Update an existing assignment
 5) Delete an existing assignment 
 
-*Please be mindful of your spelling when you are typing out names
+*Please be mindful of your spelling as you use the application
 
 I hope this platform will better support you to have a successful academic year!
 

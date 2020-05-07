@@ -96,7 +96,6 @@ class CommandLineInterface
         self.line_break
         puts "Please select a teacher by typing out their full name below:".colorize(:light_blue)
         self.all_teachers(student_user)
-        #until 
         self.line_break
         student_input = gets.chomp.titleize
         self.line_break
@@ -185,7 +184,7 @@ class CommandLineInterface
     # lists all assignments
     def teacher_all_assignment_tasks(teacher_user) 
         self.line_break
-        puts "Here are all your assignments:".colorize(:magenta)
+        puts "Here are all your assignments:".colorize(:light_magenta)
         t = Teacher.find_by(name: teacher_user)
         #puts t.assignments.select(:task).map(&:task).uniq
         list = t.assignments.select do |assignment|
@@ -230,9 +229,6 @@ class CommandLineInterface
         self.all_students(teacher_user)
         self.line_break
         task_student = gets.chomp.titleize
-        # until task_student == Student.find_by(name: task_student)
-        #     puts "Invalid response. Please type in the name of the student".colorize(:yellow)
-        # end
         s = Student.find_by(name: task_student)
         t = Teacher.find_by(name: teacher_user)
         Assignment.create(task: task_input, student_id: s.id, teacher_id: t.id)
@@ -263,7 +259,6 @@ class CommandLineInterface
         self.line_break
         task_input = gets.chomp
         self.line_break
-        #until 
         puts "Type in below what you would like to update the task to say:".colorize(:cyan)
         self.line_break
         new_task_input = gets.chomp
@@ -280,7 +275,6 @@ class CommandLineInterface
         puts "To begin, type in the task you would like to delete exactly as it was written when assigned:".colorize(:cyan)
         self.line_break
         task_input = gets.chomp
-        #until
         assignment = Assignment.find_by(task: task_input)
         assignment.delete
         self.line_break
@@ -302,6 +296,7 @@ class CommandLineInterface
 
     #brings teacher user back to teacher menu
     def teacher_main_menu(teacher_user) 
+        self.line_break
         puts "Please select a command:".colorize(:light_blue), "1: Return to Main Menu".colorize(:cyan), "2: Exit".colorize(:cyan)
         self.line_break
         input = gets.chomp
