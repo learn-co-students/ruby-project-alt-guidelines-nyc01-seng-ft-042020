@@ -184,11 +184,11 @@ class CommandLineInterface
 
     #transition method to create assignments
     def teacher_create_assignment(teacher_user) 
-        puts "Please select a command:", "1: Create assignment for individual student", "2: Mass create assignment for all students", "3: Return to Main Menu"
+        puts "Please select a command:", "1: Create assignment for individual student", "2: Mass create assignment for all students", "3: Return to Main Menu", "4: Exit"
         self.line_break
         input = gets.chomp
         until input == "1" || input == "2" || input == "3"
-            puts "Invalid response. Please select a command:", "1: Create assignment for individual student", "2: Mass create assignment for all students", "3: Return to Main Menu"
+            puts "Invalid response. Please select a command:", "1: Create assignment for individual student", "2: Mass create assignment for all students", "3: Return to Main Menu", "4: Exit"
             input = gets.chomp
         end
         if input == "1"
@@ -197,6 +197,8 @@ class CommandLineInterface
             self.create_assignment_mass(teacher_user)
         elsif input == "3"
             self.teacher_tasks(teacher_user)
+        elsif input == "4"
+            puts "Have a great day!"
         end
         self.teacher_main_menu(teacher_user)
     end
