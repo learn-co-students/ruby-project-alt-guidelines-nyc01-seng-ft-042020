@@ -25,6 +25,7 @@ class CommandLineInterface
         end
     end
     
+
     ## Student Methods
 
     #student user welcome message
@@ -144,6 +145,7 @@ class CommandLineInterface
         end
     end
 
+
     ## Teacher Methods
 
     #teacher user welcome message
@@ -246,7 +248,7 @@ class CommandLineInterface
         end
     end
 
-    #create assignments for all
+    #create assignments for all students
     def create_assignment_mass(teacher_user) 
         self.line_break
         puts "To begin, type in your new assignment task below:".colorize(:cyan)
