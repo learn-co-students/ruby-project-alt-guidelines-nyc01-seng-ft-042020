@@ -6,13 +6,14 @@ class CommandLineInterface
 
     #runs application
     def run 
+        self.line_break
         greeting
         puts "Are you a student or a teacher?"
-        puts "Type in 'student' or 'teacher' to begin. Otherwise type in 'exit' to leave."
+        puts "Type in 'student' or 'teacher' to begin. Type in 'exit' to leave."
         self.line_break
         type_of_user = gets.chomp.downcase
         until type_of_user == "student" || type_of_user == "teacher" || type_of_user == "exit"  
-            puts "Invalid response. Type in 'student' or 'teacher' to begin. Otherwise type in 'exit' to leave."
+            puts "Invalid response. Type in 'student' or 'teacher' to begin. Type in 'exit' to leave."
             type_of_user = gets.chomp.downcase
         end
         if type_of_user == "student"
@@ -43,11 +44,11 @@ class CommandLineInterface
 
     #student user tasks
     def student_tasks(student_user) 
-        puts "What would you like to do today? Please type in the corresponding letter", "1: View All Assignments", "2: View Assignments by Teacher", "3: Exit"
+        puts "What would you like to do today? Please select a command:", "1: View All Assignments", "2: View Assignments by Teacher", "3: Exit"
         self.line_break
         student_task = gets.chomp
         until student_task == "1" || student_task == "2" || student_task == "3"
-            puts "Invalid response. Please type in the corresponding letter", "1: View All Assignments", "2: View Assignments by Teacher", "3: Exit"
+            puts "Invalid response. Please select a command:", "1: View All Assignments", "2: View Assignments by Teacher", "3: Exit"
             student_task = gets.chomp
         end
         if student_task == "1"
@@ -68,13 +69,13 @@ class CommandLineInterface
         self.student_main_menu(student_user)
     end
 
-    #transition method to select teacher
+    # transition method to select teacher
     def student_assignment_by_teacher(student_user) 
-        puts "To select a teacher to view assignments for type in 1. To return to the main menu, type in 2. To exit, type in 3."
+        puts "Please select a command:", "1: Select a teacher", "2: Return to Main Menu", "3: Exit"
         self.line_break
         input = gets.chomp
         until input == "1" || input == "2" || input == "3"
-            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
+            puts "Invalid response. Please select a command:", "1: View Assignments by Teacher", "2: Return to Main Menu", "3: Exit" 
             input = gets.chomp
         end
         if input == "1"
@@ -86,30 +87,18 @@ class CommandLineInterface
         end
     end
 
-    #select teacher - call teachers from database
-    def assignment_by_teacher(student_user) 
-        puts "To select a teacher, type in the corresponding number below:", "1: Professor Dumbledore", "2: Professor Snape", "3: Professor Flitwick", "4: Professor Lupin", "5: Professor Slughorn"
+    # lists assignment by teacher
+    def assignment_by_teacher(student_user)
+        self.all_teachers(student_user)
         self.line_break
-        student_input = gets.chomp
-        until student_input == "1" || student_input == "2" || student_input == "3" || student_input == "4" || student_input == "5"
-            puts "Invalid response. Type in the number corresponding to the teacher below:", "1: Professor Dumbledore", "2: Professor Snape", "3: Professor Flitwick", "4: Professor Lupin", "5: Professor Slughorn"
-            student_input = gets.chomp
+        student_input = gets.chomp.titleize
+        s = Student.find_by(name: student_user)
+        t = Teacher.find_by(name: student_input)
+        list = s.assignments.select do |assignment|
+            assignment.teacher_id == t.id
         end
-        if student_input == "1"
-            teacher = "Albus Dumbledore"
-            self.list_by_teacher(student_user, teacher)
-        elsif student_input == "2"
-            teacher == "Severus Snape"
-            self.list_by_teacher(student_user, teacher)
-        elsif student_input == "3"
-            teacher = "Filius Flitwick"
-            self.list_by_teacher(student_user, teacher)
-        elsif student_input == "4"
-            teacher = "Remus Lupin"
-            self.list_by_teacher(student_user, teacher)
-        elsif student_input == "5"
-            teacher = "Horace Slughorn"
-            self.list_by_teacher(student_user, teacher)
+        list.each do |assignment|
+            puts assignment.task
         end
         self.student_main_menu(student_user)
     end
@@ -125,26 +114,14 @@ class CommandLineInterface
         end
         puts list
     end
-    
-    #list assignments by teacher
-    def list_by_teacher(student_user, teacher) 
-        s = Student.find_by(name: student_user)
-        t = Teacher.find_by(name: teacher)
-        list = s.assignments.select do |assignment|
-            assignment.teacher_id == t.id
-        end      
-        list.each do |assignment|
-            puts assignment.task
-        end
-    end
 
     #returns student user to student main menu
     def student_main_menu(student_user) 
-        puts "To return to the main menu, type in 1. To exit, type in 2."
+        puts "Please select a command:", "1: Return to Main Menu", "2: Exit" 
         self.line_break
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
+            puts "Invalid response. Please select a command:", "1: Return to Main Menu", "2: Exit" 
             input = gets.chomp
         end
         if input == "1"
@@ -171,11 +148,11 @@ class CommandLineInterface
 
     #teacher user tasks
     def teacher_tasks(teacher_user) 
-        puts "What would you like to do today? Please type in the corresponding number", "1: View All Assignment Tasks", "2: Create New Assignment", "3: Update Assignment", "4: Delete Assignment", "5: Exit"
+        puts "What would you like to do today? Please select a command:", "1: View All Assignment Tasks", "2: Create New Assignment", "3: Update Assignment", "4: Delete Assignment", "5: Exit"
         self.line_break
         teacher_task = gets.chomp
         until teacher_task == "1" || teacher_task == "2" || teacher_task == "3" || teacher_task == "4" || teacher_task == "5"
-            puts "Invalid response. Please type in the corresponding number", "1: View All Assignment Tasks", "2: Create New Assignment", "3: Update Assignment", "4: Delete Assignment", "5: Exit"
+            puts "Invalid response. Please select a command:", "1: View All Assignment Tasks", "2: Create New Assignment", "3: Update Assignment", "4: Delete Assignment", "5: Exit"
             teacher_task = gets.chomp
         end
         if teacher_task == "1"
@@ -189,18 +166,6 @@ class CommandLineInterface
         elsif teacher_task == "5"
            puts "Have a great day!"
         end
-    end
-
-    #lists all students for teacher user
-    def all_students(teacher_user)
-        counter = 0 
-        while counter <= Student.all.count 
-            list = Student.all.map do |pupil|
-                pupil.name
-            end
-            counter += 1
-        end
-        puts list
     end
 
     # lists all assignments
@@ -217,13 +182,13 @@ class CommandLineInterface
         self.teacher_main_menu(teacher_user)
     end
 
-    #transition method to creating assignments
+    #transition method to create assignments
     def teacher_create_assignment(teacher_user) 
-        puts "To create an assignment for an individual student, type in 1. To create an assignment for all students, type in 2. To return to the main menu, type in 3."
+        puts "Please select a command:", "1: Create assignment for individual student", "2: Mass create assignment for all students", "3: Return to Main Menu"
         self.line_break
         input = gets.chomp
-        until input == "1" || input == "2"
-            puts "Invalid response. To return to the main menu, type in 1. To exit, type in 2."
+        until input == "1" || input == "2" || input == "3"
+            puts "Invalid response. Please select a command:", "1: Create assignment for individual student", "2: Mass create assignment for all students", "3: Return to Main Menu"
             input = gets.chomp
         end
         if input == "1"
@@ -236,9 +201,9 @@ class CommandLineInterface
         self.teacher_main_menu(teacher_user)
     end
 
-    #creates assignment for one student
+    #create assignment for one student
     def create_assignment_single_student(teacher_user) 
-        puts "To begin, type in your new assignment task below"
+        puts "To begin, type in your new assignment task below:"
         self.line_break
         task_input = gets.chomp
         puts "To select a student, type in the full name of the student based on the list below:"
@@ -252,9 +217,9 @@ class CommandLineInterface
         self.teacher_main_menu(teacher_user)
     end
 
-    #creates mass assignments
+    #create assignments for all
     def create_assignment_mass(teacher_user) 
-        puts "To begin, type in your new assignment task below"
+        puts "To begin, type in your new assignment task below:"
         self.line_break
         task_input = gets.chomp
         t = Teacher.find_by(name: teacher_user)
@@ -267,7 +232,7 @@ class CommandLineInterface
 
     #updates a single assignment
     def teacher_update_assignment(teacher_user) 
-        puts "To begin, type in the task you would like to update exactly as it was written when assigned"
+        puts "To begin, type in the task you would like to update exactly as it was written when assigned:"
         self.line_break
         task_input = gets.chomp
         puts "Type in below what you would like to update the task to say:"
@@ -281,7 +246,7 @@ class CommandLineInterface
 
     #deletes a single assignment
     def teacher_delete_assignment(teacher_user) 
-        puts "To begin, type in the task you would like to delete exactly as it was written when assigned"
+        puts "To begin, type in the task you would like to delete exactly as it was written when assigned:"
         self.line_break
         task_input = gets.chomp
         assignment = Assignment.find_by(task: task_input)
@@ -290,13 +255,25 @@ class CommandLineInterface
         self.teacher_main_menu(teacher_user)
     end
 
-    #brings user back to teacher menu
+    #lists all students for teacher user
+    def all_students(teacher_user)
+        counter = 0 
+        while counter <= Student.all.count 
+            list = Student.all.map do |pupil|
+                pupil.name
+            end
+            counter += 1
+        end
+        puts list
+    end
+
+    #brings teacher user back to teacher menu
     def teacher_main_menu(teacher_user) 
-        puts "To return to main menu, type in 1. To exit, type in 2."
+        puts "Please select a command:", "1: Return to Main Menu", "2: Exit"
         self.line_break
         input = gets.chomp
         until input == "1" || input == "2"
-            puts "Invalid response. To return to main menu, type in 1. To exit, type in 2."
+            puts "Invalid response. Please select a command:", "1: Return to Main Menu", "2: Exit"
             input = gets.chomp
         end
         if input == "1"
@@ -310,5 +287,6 @@ class CommandLineInterface
     def line_break
         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     end
+
 end
 
