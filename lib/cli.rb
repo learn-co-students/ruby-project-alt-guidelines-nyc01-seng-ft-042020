@@ -24,7 +24,6 @@ class CommandLineInterface
             puts "Have a great day!".colorize(:light_green)
         end
     end
-
     
     ## Student Methods
 
