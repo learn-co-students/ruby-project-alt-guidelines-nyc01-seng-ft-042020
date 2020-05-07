@@ -111,7 +111,7 @@ class CommandLineInterface
             self.student_main_menu(student_user)
         else 
             puts "Invalid response!".colorize(:yellow)
-            self.student_assignment_by_teacher(student_user)
+            self.assignment_by_teacher(student_user)
         end
     end
 
@@ -242,7 +242,7 @@ class CommandLineInterface
             self.teacher_main_menu(teacher_user)
         else 
             puts "Invalid response!".colorize(:yellow)
-            self.teacher_create_assignment(teacher_user)
+            self.create_assignment_single_student(teacher_user)
         end
     end
 
@@ -276,10 +276,16 @@ class CommandLineInterface
             assignment.update(task: new_task_input)
             self.line_break
             puts "Assignment Updated!".colorize(:light_magenta)
+            self.teacher_main_menu(teacher_user)
         else
-            puts "Invalid response!".colorize(:yellow)
+            puts "Invalid response! Please select a command:".colorize(:yellow), "1: Update Assignment".colorize(:cyan), "2: Main Menu".colorize(:cyan)
+            user_input = gets.chomp
+            if user_input == "1"
+                self.teacher_update_assignment(teacher_user)
+            else user_input == "2"
+                self.teacher_tasks(teacher_user)
+            end
         end
-        self.teacher_main_menu(teacher_user)
     end
 
     #deletes a single assignment
@@ -293,10 +299,16 @@ class CommandLineInterface
             assignment.delete
             self.line_break
             puts "Assignment Deleted!".colorize(:light_magenta)
+            self.teacher_main_menu(teacher_user)
         else 
-            puts "Invalid response!".colorize(:yellow)
+            puts "Invalid response! Please select a command:".colorize(:yellow), "1: Delete Assignment".colorize(:cyan), "2: Main Menu".colorize(:cyan)
+            user_input = gets.chomp
+            if user_input == "1"
+                self.teacher_delete_assignment(teacher_user)
+            else user_input == "2"
+                self.teacher_tasks(teacher_user)
+            end
         end
-        self.teacher_main_menu(teacher_user)
     end
 
     #lists all students for teacher user
