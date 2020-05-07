@@ -98,16 +98,21 @@ class CommandLineInterface
         self.line_break
         student_input = gets.chomp.titleize
         self.line_break
-        puts "Here are your assignments for Professor #{student_input}:".colorize(:magenta)
-        s = Student.find_by(name: student_user)
-        t = Teacher.find_by(name: student_input)
-        list = s.assignments.select do |assignment|
-            assignment.teacher_id == t.id
+        if Teacher.find_by(name: student_input)
+            puts "Here are your assignments for Professor #{student_input}:".colorize(:magenta)
+            s = Student.find_by(name: student_user)
+            t = Teacher.find_by(name: student_input)
+            list = s.assignments.select do |assignment|
+                assignment.teacher_id == t.id
+            end
+            list.each do |assignment|
+                puts assignment.task
+            end
+            self.student_main_menu(student_user)
+        else 
+            puts "Invalid response!".colorize(:yellow)
+            self.student_assignment_by_teacher(student_user)
         end
-        list.each do |assignment|
-            puts assignment.task
-        end
-        self.student_main_menu(student_user)
     end
 
     #lists all teachers for student user
@@ -228,12 +233,17 @@ class CommandLineInterface
         self.all_students(teacher_user)
         self.line_break
         task_student = gets.chomp.titleize
-        s = Student.find_by(name: task_student)
-        t = Teacher.find_by(name: teacher_user)
-        Assignment.create(task: task_input, student_id: s.id, teacher_id: t.id)
-        self.line_break
-        puts "Assignment Created!".colorize(:light_magenta)
-        self.teacher_main_menu(teacher_user)
+        if Student.find_by(name: task_student)   
+            s = Student.find_by(name: task_student)
+            t = Teacher.find_by(name: teacher_user)
+            Assignment.create(task: task_input, student_id: s.id, teacher_id: t.id)
+            self.line_break
+            puts "Assignment Created!".colorize(:light_magenta)
+            self.teacher_main_menu(teacher_user)
+        else 
+            puts "Invalid response!".colorize(:yellow)
+            self.teacher_create_assignment(teacher_user)
+        end
     end
 
     #create assignments for all
@@ -257,14 +267,18 @@ class CommandLineInterface
         puts "To begin, type in the task you would like to update exactly as it was written when assigned:".colorize(:cyan)
         self.line_break
         task_input = gets.chomp
-        self.line_break
-        puts "Type in below what you would like to update the task to say:".colorize(:cyan)
-        self.line_break
-        new_task_input = gets.chomp
-        assignment = Assignment.find_by(task: task_input)
-        assignment.update(task: new_task_input)
-        self.line_break
-        puts "Assignment Updated!".colorize(:light_magenta)
+        if Assignment.find_by(task: task_input)
+            self.line_break
+            puts "Type in below what you would like to update the task to say:".colorize(:cyan)
+            self.line_break
+            new_task_input = gets.chomp
+            assignment = Assignment.find_by(task: task_input)
+            assignment.update(task: new_task_input)
+            self.line_break
+            puts "Assignment Updated!".colorize(:light_magenta)
+        else
+            puts "Invalid response!".colorize(:yellow)
+        end
         self.teacher_main_menu(teacher_user)
     end
 
@@ -274,10 +288,14 @@ class CommandLineInterface
         puts "To begin, type in the task you would like to delete exactly as it was written when assigned:".colorize(:cyan)
         self.line_break
         task_input = gets.chomp
-        assignment = Assignment.find_by(task: task_input)
-        assignment.delete
-        self.line_break
-        puts "Assignment Deleted!".colorize(:light_magenta)
+        if Assignment.find_by(task: task_input)
+            assignment = Assignment.find_by(task: task_input)
+            assignment.delete
+            self.line_break
+            puts "Assignment Deleted!".colorize(:light_magenta)
+        else 
+            puts "Invalid response!".colorize(:yellow)
+        end
         self.teacher_main_menu(teacher_user)
     end
 
