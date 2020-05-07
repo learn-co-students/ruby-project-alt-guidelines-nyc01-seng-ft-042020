@@ -15,7 +15,8 @@ Faculty of Hogwarts School of Witchcraft and Wizardry:
 3) Filius Flitwick
 4) Remus Lupin
 5) Pomona Sprout
-===================================================================================================================================
+==================================================================
+
 ❤️ The Assignment Portal ❤️
 
 The Assignment Portal is the NEW platform that will be used by Hogwarts School of Witchcraft and Wizardry this school year!
