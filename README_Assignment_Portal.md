@@ -1,6 +1,6 @@
 MODULE ONE FINAL PROJECT
 ===================================================================================================================================
-## Please note: Only active students and faculty of Hogwarts School of Witchcraft and Wizardry have access to the Assignment Portal
+📌Please note: Only active students and faculty of Hogwarts School of Witchcraft and Wizardry have access to the Assignment Portal
 
 Students of Hogwarts School of Witchcraft and Wizardry:
 1) Harry Potter
@@ -38,5 +38,5 @@ Please note: Only students and faculty at this school will have access to this p
 I hope this platform will better support you to ensure a successful academic year!
 
 Best, 
-Albus Dumbledore🖊
+🧙🏼‍♂️Albus Dumbledore🖊
 
