@@ -40,5 +40,6 @@ Please note: Only students and faculty at this school will have access to this p
 I hope this platform will better support you to ensure a successful academic year!
 
 Best, 
+
 🧙🏼‍♂️Albus Dumbledore🖊
 
