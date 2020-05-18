@@ -1,7 +1,7 @@
 class CommandLineInterface
     #welcome greeting
     def greeting
-        puts "Welcome to the Assignment Portal!".colorize(:light_green)
+        puts "Welcome to the Hogwarts School of Witchcraft and Wizardry Assignment Portal!".colorize(:light_green)
     end
 
     #runs application
